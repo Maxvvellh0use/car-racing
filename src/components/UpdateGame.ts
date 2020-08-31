@@ -3,7 +3,8 @@ import {
 } from './consts';
 import { drawRoad } from './Road';
 import { drawBackground } from './Background';
-import { drawCar } from './MyCar';
+import { drawMyCar } from './MyCar';
+import {drawOncomingCar} from "./OncomingCar";
 
 const canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
@@ -24,7 +25,8 @@ export const UpdateGame = (isPressed) => {
   }
   drawRoad();
   drawBackground();
-  drawCar(myCarX, myCarY);
+  drawOncomingCar(65, -25);
+  drawMyCar(myCarX, myCarY);
 };
 
 // setInterval(UpdateGame, 10);
