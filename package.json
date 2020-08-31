@@ -2,9 +2,9 @@
   "name": "car-racing",
   "version": "1.0.0",
   "description": "Brick game – Car Racing",
-  "main": "src/index.js" ,
+  "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start: dev": "node_modules/.bin/webpack-dev-server",
     "build": "node_modules/.bin/webpack -w"
   },
   "devDependencies": {
@@ -16,6 +16,8 @@
     "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@jest/environment": "^26.0.1",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
     "@zeit/next-css": "^1.0.1",
     "autoprefixer": "^9.7.6",
     "babel-cli": "^6.26.0",
@@ -40,6 +42,8 @@
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
     "url-loader": "^4.1.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
