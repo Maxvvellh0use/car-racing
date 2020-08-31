@@ -1,19 +1,19 @@
 import { drawCube } from './Cube';
-import { roadHeight, roadWidth } from './consts';
+import { moveStep, roadHeight, roadWidth } from './consts';
 
 export const drawBackground = () => {
   const drawRow = (coordY) => {
     let i = 5;
     while (i < roadWidth) {
       drawCube(i, coordY, 0.2);
-      i += 30;
+      i += moveStep;
     }
   };
   const drawFullBackground = () => {
-    let i = 5;
-    while (i < roadHeight) {
-      drawRow(i);
-      i += 30;
+    let coordY = 5;
+    while (coordY < roadHeight) {
+      drawRow(coordY);
+      coordY += moveStep;
     }
   };
   drawFullBackground();
