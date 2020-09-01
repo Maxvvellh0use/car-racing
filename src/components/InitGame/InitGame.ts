@@ -6,6 +6,14 @@ import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
 import { Game } from '../Game/Game';
 
 export const InitGame = () => {
+  const root = document.getElementById('root');
+  const startScreen = document.getElementById('startScreen');
+  startScreen.classList.add('hidden');
+  root.insertAdjacentHTML('afterbegin', `<canvas 
+                                                     class="canvas"
+                                                     id="canvasRoot" 
+                                                     width="305" 
+                                                     height="630"></canvas>`);
   ScoreContainer(startScore.score, startScore.hiScore, startScore.lifes,
     startScore.speed, startScore.speed);
   drawRoad(-25);

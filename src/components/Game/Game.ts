@@ -9,12 +9,16 @@ import { oncomingCars } from '../../data/oncomingCars';
 import { myCarMoveHandler } from '../helpers/myCarMoveHandler';
 import { isCrashCheck } from '../helpers/isCrushCheck';
 import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
-
-const canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
-const rootScore = document.getElementById('rootScore');
-const ctx = canvas.getContext('2d');
+//
+// const takeOnMe = require('../../assets/audio/take-on-me.mp3');
 
 export class Game {
+  canvas: HTMLCanvasElement;
+
+  rootScore: HTMLElement;
+
+  ctx: CanvasRenderingContext2D;
+
   myCarX: number;
 
   myCarY: number;
@@ -34,6 +38,9 @@ export class Game {
   delayTimeout: number;
 
   constructor() {
+    this.canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
+    this.rootScore = document.getElementById('rootScore');
+    this.ctx = this.canvas.getContext('2d');
     this.myCarX = startPosition.myCarX;
     this.myCarY = startPosition.myCarY;
     this.backgroundY = startPosition.backgroundY;
@@ -46,11 +53,13 @@ export class Game {
   }
 
   initUpdate = () => {
+    const takeOnMe = new Audio('src/audio/take-on-me.mp3');
+    takeOnMe.play().then();
     this.timeout();
   }
 
   movingRoad = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     drawBackground(this.backgroundY);
     drawRoad(this.roadY);
     this.oncomingCarY = this.oncomingCarY > maxOncomingCarsY ? startPosition.oncomingCarY
@@ -62,7 +71,7 @@ export class Game {
   };
 
   updateGame = (isPressed: string) => {
-    rootScore.innerHTML = '';
+    this.rootScore.innerHTML = '';
     ScoreContainer(this.goal * 100, 0, 0, this.speedCoeff, this.goal);
     if (!this.isCrash) {
       this.myCarX = myCarMoveHandler(isPressed, this.myCarX, this.myCarY).myCarX;
@@ -72,7 +81,7 @@ export class Game {
   };
 
   updateBackground = () => {
-    rootScore.innerHTML = '';
+    this.rootScore.innerHTML = '';
     const oncomingCarsPointsCoord = oncomingCars.map((car) => drawOncomingCar(car.oncomingCarX,
       car.oncomingCarY + this.oncomingCarY));
     if (oncomingCarsPointsCoord.flat().some((point) => point === '635')) {

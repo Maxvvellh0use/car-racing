@@ -28,3 +28,39 @@
   margin: 20px;
   width: 100%;
 }
+
+.start_button_container {
+  width: 510px;
+  height: 630px;
+  background: #9BB7AC;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid black;
+}
+
+.start_button {
+  width: 300px;
+  height: 100px;
+  text-decoration: none;
+  text-align: center;
+  padding: 11px 19px;
+  border: solid 1px #005072;
+  border-radius: 4px;
+  font: 35px Arial, Helvetica, sans-serif;
+  font-weight:bold;
+  color: #e5ffff;
+  background:#0062ec;
+  box-shadow:0 0 2px #bababa, inset 0 0 1px #ffffff;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+
+
+
+.hidden {
+  display: none;
+}

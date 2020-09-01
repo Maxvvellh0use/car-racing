@@ -1,6 +1,5 @@
-const canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
-export const roadWidth = canvas.width;
-export const roadHeight = canvas.height;
+export const roadWidth = 305;
+export const roadHeight = 630;
 
 export const startPosition = {
   myCarY: 515,
