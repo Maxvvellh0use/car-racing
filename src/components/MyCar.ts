@@ -11,10 +11,10 @@ export const drawMyCar = (coordX: number, coordY: number) => {
   drawCube(coordX + 30, coordY + 90);
 
   return [
-    `${coordX}, ${coordY}`,
-    `${coordX - 30}, ${coordY + 30}`,
-    `${coordX + 30}, ${coordY + 30}`,
-    `${coordX - 30}, ${coordY + 90}`,
-    `${coordX + 30}, ${coordY + 90}`,
+    `${coordX},${coordY}`,
+    `${coordX - 30},${coordY + 30}`,
+    `${coordX + 30},${coordY + 30}`,
+    `${coordX - 30},${coordY + 90}`,
+    `${coordX + 30},${coordY + 90}`,
   ];
 };

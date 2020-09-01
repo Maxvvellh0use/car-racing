@@ -26,14 +26,30 @@ export const oncomingCars = [
   },
   {
     oncomingCarX: xPositionLeft,
-    oncomingCarY: 56 * cubeHeightCoeff,
+    oncomingCarY: 58 * cubeHeightCoeff,
   },
   {
     oncomingCarX: xPositionRight,
-    oncomingCarY: 65 * cubeHeightCoeff,
+    oncomingCarY: 67 * cubeHeightCoeff,
   },
   {
     oncomingCarX: xPositionLeft,
-    oncomingCarY: 80 * cubeHeightCoeff,
+    oncomingCarY: 83 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionLeft,
+    oncomingCarY: 93 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionRight,
+    oncomingCarY: 104 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionLeft,
+    oncomingCarY: 113 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionRight,
+    oncomingCarY: 126 * cubeHeightCoeff,
   },
 ];

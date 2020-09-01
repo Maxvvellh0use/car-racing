@@ -4,9 +4,9 @@ import {
 
 export const myCarMoveHandler = (isPressed, myCarX, myCarY): { myCarX: number, myCarY: number } => {
   if (isPressed === 'Right' && myCarX < maxCarRight) {
-    return { myCarX: myCarX + moveStep, myCarY };
+    return { myCarX: myCarX + 90, myCarY };
   } if (isPressed === 'Left' && myCarX > maxCarLeft) {
-    return { myCarX: myCarX - moveStep, myCarY };
+    return { myCarX: myCarX - 90, myCarY };
   } if (isPressed === 'Up' && myCarY > maxCarUp) {
     return { myCarX, myCarY: myCarY - moveStep };
   } if (isPressed === 'Down' && myCarY < maxCarDown) {
