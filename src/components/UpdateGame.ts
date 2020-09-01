@@ -4,13 +4,16 @@ import {
 import { drawRoad } from './Road';
 import { drawBackground } from './Background';
 import { drawMyCar } from './MyCar';
-import {drawOncomingCar} from "./OncomingCar";
+import { drawOncomingCar } from './OncomingCar';
 
 const canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
 let myCarX = maxCarLeft;
 let myCarY = maxCarDown;
+
+let backgroundY = -25;
+let startBackgroundCoordY = -25;
 
 export const UpdateGame = (isPressed) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -23,10 +26,24 @@ export const UpdateGame = (isPressed) => {
   } else if (isPressed === 'Down' && myCarY < maxCarDown) {
     myCarY += moveStep;
   }
-  drawRoad();
-  drawBackground();
+  drawRoad(backgroundY);
+  drawBackground(backgroundY, startBackgroundCoordY);
   drawOncomingCar(65, -25);
   drawMyCar(myCarX, myCarY);
 };
 
-// setInterval(UpdateGame, 10);
+const updateBackground = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  backgroundY += 30;
+  startBackgroundCoordY += 30;
+  drawBackground(backgroundY, startBackgroundCoordY);
+  // while (rowCount < 99) {
+  //   drawNewRow(5, rowCoordY, rowCount);
+  //   rowCount += 1;
+  // }
+  drawRoad(backgroundY);
+  drawOncomingCar(65, -25);
+  drawMyCar(myCarX, myCarY);
+};
+
+setInterval(updateBackground, 500);
