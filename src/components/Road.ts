@@ -1,6 +1,7 @@
 import { drawLine } from './Line';
 
-export const drawRoad = (coordY: number) => {
+export const drawRoad = (startRoadCoordY) => {
+  const coordY = startRoadCoordY;
   const yInterval = 120;
   const xInterval = 270;
   const drawLeft = () => {
