@@ -17,3 +17,8 @@ export const maxCarLeft = 65;
 export const maxCarRight = 215;
 export const maxCarUp = 5;
 export const maxCarDown = 515;
+
+export const maxCarsInterval = 720;
+export const minCarsIntreval = 270;
+
+export const maxOncomingCarsY = 3000;

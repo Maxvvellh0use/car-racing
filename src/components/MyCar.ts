@@ -17,26 +17,4 @@ export const drawMyCar = (coordX: number, coordY: number) => {
     `${coordX - 30}, ${coordY + 90}`,
     `${coordX + 30}, ${coordY + 90}`,
   ];
-
-  // return {
-  //   front: {
-  //     coordX, coordY,
-  //   },
-  //   leftFrontWheel: {
-  //     coordX: coordX - 30,
-  //     coordY: coordY + 30,
-  //   },
-  //   rightFrontWheel: {
-  //     coordX: coordX + 30,
-  //     coordY: coordY + 30,
-  //   },
-  //   leftBackWheel: {
-  //     coordX: coordX - 30,
-  //     coordY: coordY + 90,
-  //   },
-  //   rightBacktWheel: {
-  //     coordX: coordX + 30,
-  //     coordY: coordY + 90,
-  //   },
-  // };
 };

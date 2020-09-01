@@ -1,6 +1,6 @@
 import {
   maxCarDown, maxCarLeft, maxCarRight, maxCarUp, moveStep,
-} from './consts';
+} from '../consts';
 
 export const myCarMoveHandler = (isPressed, myCarX, myCarY): { myCarX: number, myCarY: number } => {
   if (isPressed === 'Right' && myCarX < maxCarRight) {
