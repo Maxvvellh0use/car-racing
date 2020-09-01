@@ -1,4 +1,4 @@
-import { drawCube } from './Cube';
+import { drawCube } from '../Cube/Cube';
 
 export const drawLine = (coordX: number, coordY: number) => {
   drawCube(coordX, coordY);

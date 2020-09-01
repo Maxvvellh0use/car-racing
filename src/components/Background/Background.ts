@@ -1,6 +1,6 @@
-import { drawCube } from './Cube';
-import { moveStep, roadHeight, roadWidth } from './consts';
-import { drawRow } from "./Row";
+import { drawCube } from '../Cube/Cube';
+import { moveStep, roadHeight, roadWidth } from '../consts';
+import { drawRow } from "../Row/Row";
 
 export const drawBackground = (startCoordY) => {
   const drawFullBackground = () => {

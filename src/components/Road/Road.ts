@@ -1,4 +1,4 @@
-import { drawLine } from './Line';
+import { drawLine } from '../Line/Line';
 
 export const drawRoad = (startRoadCoordY) => {
   const coordY = startRoadCoordY;

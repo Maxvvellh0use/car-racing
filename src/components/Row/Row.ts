@@ -1,5 +1,5 @@
-import { moveStep, roadWidth } from './consts';
-import { drawCube } from './Cube';
+import { moveStep, roadWidth } from '../consts';
+import { drawCube } from '../Cube/Cube';
 
 export const drawRow = (coordY: number) => {
   let i = 5;
