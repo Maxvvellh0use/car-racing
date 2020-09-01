@@ -37,6 +37,8 @@ export class Game {
 
   delayTimeout: number;
 
+  takeOnMe: HTMLAudioElement;
+
   constructor() {
     this.canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
     this.rootScore = document.getElementById('rootScore');
@@ -50,12 +52,13 @@ export class Game {
     this.speedCoeff = 0;
     this.goal = startScore.goal;
     this.delayTimeout = 300;
+    this.takeOnMe = new Audio('src/audio/take-on-me.mp3');
   }
 
   initUpdate = () => {
-    const takeOnMe = new Audio('src/audio/take-on-me.mp3');
-    takeOnMe.play().then();
+    this.takeOnMe.play().then();
     this.timeout();
+    this.buttonMove();
   }
 
   movingRoad = () => {
@@ -71,6 +74,10 @@ export class Game {
   };
 
   updateGame = (isPressed: string) => {
+    const oncomingCarsPointsCoord = oncomingCars.map((car) => drawOncomingCar(car.oncomingCarX,
+      car.oncomingCarY + this.oncomingCarY));
+    const myCarPointsCoord = drawMyCar(this.myCarX, this.myCarY);
+    this.isCrash = isCrashCheck(oncomingCarsPointsCoord, myCarPointsCoord);
     this.rootScore.innerHTML = '';
     ScoreContainer(this.goal * 100, 0, 0, this.speedCoeff, this.goal);
     if (!this.isCrash) {
@@ -104,6 +111,8 @@ export class Game {
     }
     if (!this.isCrash) {
       setTimeout(this.moveBackground, this.delayTimeout);
+    } else {
+      this.endGame();
     }
   }
 
@@ -111,15 +120,37 @@ export class Game {
     setTimeout(this.moveBackground, this.delayTimeout);
   }
 
+  isMoveKey = (e): boolean => e.key === 'Right' || e.key === 'ArrowRight'
+        || e.key === 'Left' || e.key === 'ArrowLeft'
+
+  buttonMove = () => {
+    const moveAudio = new Audio('src/audio/move.mp3');
+    moveAudio.volume = 0.1;
+    const buttonLeft = document.getElementById('buttonLeft');
+    const buttonRight = document.getElementById('buttonRight');
+    buttonLeft.addEventListener('click', () => {
+      this.updateGame('Left');
+      moveAudio.play().then();
+    });
+    buttonRight.addEventListener('click', () => {
+      this.updateGame('Right');
+      moveAudio.play().then();
+    });
+  }
+
   keyHandler = (e) => {
+    const moveAudio = new Audio('src/audio/move.mp3');
+    moveAudio.volume = 0.1;
     if (e.key === 'Right' || e.key === 'ArrowRight') {
       this.updateGame('Right');
     } if (e.key === 'Left' || e.key === 'ArrowLeft') {
       this.updateGame('Left');
-    } if (e.key === 'Up' || e.key === 'ArrowUp') {
-      this.updateGame('Up');
-    } if (e.key === 'Down' || e.key === 'ArrowDown') {
-      this.updateGame('Down');
+    } if (!this.isCrash && this.isMoveKey(e)) {
+      moveAudio.play().then();
     }
   };
+
+  endGame = () => {
+    this.takeOnMe.pause();
+  }
 }

@@ -58,7 +58,59 @@
   }
 }
 
+.buttons_move_container {
+  display: flex;
+  flex-direction: row;
+  width: 510px;
+  justify-content: center;
+  margin: auto;
+}
 
+.button_move {
+  margin: 50px;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 50%;
+  user-select: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button_move__left {
+  &:after {
+    position: absolute;
+    top: 16px;;
+    left: 21px;
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-left: 3px solid gray;
+    border-bottom: 3px solid gray;
+    transform: rotate(45deg);
+  }
+}
+
+.button_move__right {
+  &:after {
+    position: absolute;
+    top: 16px;;
+    left: 11px;
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-left: 3px solid gray;
+    border-bottom: 3px solid gray;
+    transform: rotate(225deg);
+  }
+}
 
 
 .hidden {
