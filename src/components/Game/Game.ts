@@ -1,5 +1,12 @@
+import * as webpack from 'webpack';
 import {
-  maxOncomingCarsY, moveStep, startPosition, startScore,
+  maxOncomingCarsY,
+  maxRoadY,
+  minRoadY,
+  moveStep,
+  scoreIncreaseCoeff,
+  startPosition,
+  startScore, timeout,
 } from '../consts';
 import { drawRoad } from '../Road/Road';
 import { drawBackground } from '../Background/Background';
@@ -9,8 +16,7 @@ import { oncomingCars } from '../../data/oncomingCars';
 import { myCarMoveHandler } from '../helpers/myCarMoveHandler';
 import { isCrashCheck } from '../helpers/isCrushCheck';
 import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
-//
-// const takeOnMe = require('../../assets/audio/take-on-me.mp3');
+import { drawLifes } from '../Lifes/Lifes';
 
 export class Game {
   canvas: HTMLCanvasElement;
@@ -31,6 +37,12 @@ export class Game {
 
   roadY: number;
 
+  score: number;
+
+  hiScore: number;
+
+  lifes: number;
+
   speedCoeff: number;
 
   goal: number;
@@ -43,27 +55,45 @@ export class Game {
     this.canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
     this.rootScore = document.getElementById('rootScore');
     this.ctx = this.canvas.getContext('2d');
+    this.myCarX = null;
+    this.myCarY = null;
+    this.backgroundY = null;
+    this.isCrash = false;
+    this.oncomingCarY = null;
+    this.roadY = null;
+    this.speedCoeff = null;
+    this.goal = startScore.goal;
+    this.score = null;
+    this.delayTimeout = null;
+    this.hiScore = Number(localStorage.hiScore);
+    this.lifes = startScore.lifes;
+    this.takeOnMe = new Audio('src/audio/take-on-me.mp3');
+  }
+
+  initStartPosition = () => {
     this.myCarX = startPosition.myCarX;
     this.myCarY = startPosition.myCarY;
     this.backgroundY = startPosition.backgroundY;
     this.isCrash = false;
     this.oncomingCarY = startPosition.oncomingCarY;
     this.roadY = startPosition.roadY;
-    this.speedCoeff = 0;
-    this.goal = startScore.goal;
-    this.delayTimeout = 300;
-    this.takeOnMe = new Audio('src/audio/take-on-me.mp3');
+    this.speedCoeff = startScore.speed;
+    this.delayTimeout = timeout.startTimeout;
   }
 
   initUpdate = () => {
+    this.takeOnMe.addEventListener('ended', () => this.takeOnMe.play().then());
+    this.initStartPosition();
     this.takeOnMe.play().then();
     this.timeout();
     this.buttonMove();
+    localStorage.hiScore = localStorage.hiScore ? localStorage.hiScore : 0;
   }
 
   movingRoad = () => {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     drawBackground(this.backgroundY);
+    drawLifes(this.lifes);
     drawRoad(this.roadY);
     this.oncomingCarY = this.oncomingCarY > maxOncomingCarsY ? startPosition.oncomingCarY
       : this.oncomingCarY;
@@ -79,7 +109,7 @@ export class Game {
     const myCarPointsCoord = drawMyCar(this.myCarX, this.myCarY);
     this.isCrash = isCrashCheck(oncomingCarsPointsCoord, myCarPointsCoord);
     this.rootScore.innerHTML = '';
-    ScoreContainer(this.goal * 100, 0, 0, this.speedCoeff, this.goal);
+    ScoreContainer(this.score, this.hiScore, startScore.lifes, this.speedCoeff, this.goal);
     if (!this.isCrash) {
       this.myCarX = myCarMoveHandler(isPressed, this.myCarX, this.myCarY).myCarX;
       this.myCarY = myCarMoveHandler(isPressed, this.myCarX, this.myCarY).myCarY;
@@ -89,13 +119,14 @@ export class Game {
 
   updateBackground = () => {
     this.rootScore.innerHTML = '';
+    this.score = this.goal * scoreIncreaseCoeff;
     const oncomingCarsPointsCoord = oncomingCars.map((car) => drawOncomingCar(car.oncomingCarX,
       car.oncomingCarY + this.oncomingCarY));
     if (oncomingCarsPointsCoord.flat().some((point) => point === '635')) {
       this.goal += 1;
     }
-    ScoreContainer(this.goal * 100, 0, 0, this.speedCoeff, this.goal);
-    this.roadY = this.roadY > 50 ? this.roadY = -25 : this.roadY;
+    ScoreContainer(this.score, this.hiScore, 0, this.speedCoeff, this.goal);
+    this.roadY = this.roadY > maxRoadY ? this.roadY = minRoadY : this.roadY;
     this.roadY += moveStep;
     this.oncomingCarY += moveStep;
     this.movingRoad();
@@ -103,16 +134,16 @@ export class Game {
 
   moveBackground = () => {
     this.updateBackground();
-    if (this.delayTimeout !== 50) {
-      this.delayTimeout -= 0.5;
+    if (this.delayTimeout !== timeout.minTimeout) {
+      this.delayTimeout -= timeout.changeTimeout;
     }
-    if (this.delayTimeout % 30 === 0) {
-      this.speedCoeff += 1;
+    if (this.delayTimeout % timeout.speedIncreaseThreshold === 0) {
+      this.speedCoeff += timeout.increaseSpeedCoeff;
     }
     if (!this.isCrash) {
       setTimeout(this.moveBackground, this.delayTimeout);
     } else {
-      this.endGame();
+      this.crashEvent();
     }
   }
 
@@ -150,7 +181,27 @@ export class Game {
     }
   };
 
-  endGame = () => {
+  crashEvent = () => {
+    const crashAudio = new Audio('src/audio/crash.mp3');
+    crashAudio.play().then();
+    if (this.lifes === 1) {
+      this.endGameEvent();
+    } else {
+      this.initStartPosition();
+      this.isCrash = false;
+      this.lifes -= 1;
+      this.initUpdate();
+    }
+  }
+
+  endGameEvent = () => {
     this.takeOnMe.pause();
+    this.initStartPosition();
+    this.lifes = startScore.lifes;
+    this.score = startScore.score;
+    this.isCrash = false;
+    if (Number(localStorage.hiScore) < this.score) {
+      localStorage.hiScore = this.score;
+    }
   }
 }

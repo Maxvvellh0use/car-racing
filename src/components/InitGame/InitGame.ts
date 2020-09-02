@@ -4,6 +4,7 @@ import { drawBackground } from '../Background/Background';
 import { startPosition, startScore } from '../consts';
 import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
 import { Game } from '../Game/Game';
+import {drawLifes} from "../Lifes/Lifes";
 
 export const InitGame = () => {
   const root = document.getElementById('root');
@@ -18,8 +19,9 @@ export const InitGame = () => {
   buttonsMoveRoot.insertAdjacentHTML('beforeend', `
                 <button class="button_move button_move__left" id="buttonLeft"></button>
                 <button class="button_move button_move__right" id="buttonRight"></button>`);
-  ScoreContainer(startScore.score, startScore.hiScore, startScore.lifes,
+  ScoreContainer(startScore.score, Number(localStorage.hiScore), startScore.lifes,
     startScore.speed, startScore.speed);
+  drawLifes(startScore.lifes);
   drawRoad(-25);
   drawBackground(-25);
   drawMyCar(startPosition.myCarX, startPosition.myCarY);

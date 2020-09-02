@@ -22,10 +22,23 @@ export const minCarsIntreval = 270;
 
 export const maxOncomingCarsY = 4450;
 
+export const maxRoadY = 50;
+export const minRoadY = -25;
+
+export const timeout = {
+  startTimeout: 300,
+  minTimeout: 20,
+  changeTimeout: 0.5,
+  speedIncreaseThreshold: 25,
+  increaseSpeedCoeff: 1,
+};
+
 export const startScore = {
   score: 0,
   hiScore: 0,
-  lifes: 0,
+  lifes: 4,
   speed: 0,
   goal: 0,
-}
+};
+
+export const scoreIncreaseCoeff = 100;
