@@ -89,7 +89,6 @@ export class Game {
     const myCarPointsCoord = drawMyCar(this.myCarX, this.myCarY);
     this.isCrash = isCrashCheck(oncomingCarsPointsCoord, myCarPointsCoord);
     if (this.isCrash) {
-      console.log(this.setTimeout);
       clearTimeout(this.setTimeout);
     }
   };
