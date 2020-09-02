@@ -10,6 +10,7 @@ export const InitGame = () => {
   const root = document.getElementById('root');
   const startScreen = document.getElementById('startScreenRoot');
   const buttonsMoveRoot = document.getElementById('buttonsMoveRoot');
+  localStorage.hiScore = localStorage.hiScore ? localStorage.hiScore : 0;
   startScreen.classList.add('hidden');
   buttonsMoveRoot.innerHTML = '';
   root.insertAdjacentHTML('afterbegin', `<canvas 

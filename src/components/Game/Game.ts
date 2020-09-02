@@ -74,7 +74,6 @@ export class Game {
     this.takeOnMe.play().then();
     this.timeout();
     this.buttonMove();
-    localStorage.hiScore = localStorage.hiScore ? localStorage.hiScore : 0;
   }
 
   movingRoad = () => {
