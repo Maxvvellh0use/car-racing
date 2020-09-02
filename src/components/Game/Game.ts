@@ -1,4 +1,3 @@
-import * as webpack from 'webpack';
 import {
   maxOncomingCarsY,
   maxRoadY,
@@ -17,39 +16,26 @@ import { myCarMoveHandler } from '../helpers/myCarMoveHandler';
 import { isCrashCheck } from '../helpers/isCrushCheck';
 import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
 import { drawLifes } from '../Lifes/Lifes';
+import { GameOverScreen } from '../GameOverScreen/GameOverScreen';
 
 export class Game {
   canvas: HTMLCanvasElement;
-
   rootScore: HTMLElement;
-
   ctx: CanvasRenderingContext2D;
-
   myCarX: number;
-
   myCarY: number;
-
   backgroundY: number;
-
   isCrash: boolean;
-
   oncomingCarY: number;
-
   roadY: number;
-
   score: number;
-
   hiScore: number;
-
   lifes: number;
-
   speedCoeff: number;
-
   goal: number;
-
   delayTimeout: number;
-
   takeOnMe: HTMLAudioElement;
+  setTimeout: NodeJS.Timeout;
 
   constructor() {
     this.canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
@@ -68,6 +54,7 @@ export class Game {
     this.hiScore = Number(localStorage.hiScore);
     this.lifes = startScore.lifes;
     this.takeOnMe = new Audio('src/audio/take-on-me.mp3');
+    this.setTimeout = null;
   }
 
   initStartPosition = () => {
@@ -101,6 +88,10 @@ export class Game {
       car.oncomingCarY + this.oncomingCarY));
     const myCarPointsCoord = drawMyCar(this.myCarX, this.myCarY);
     this.isCrash = isCrashCheck(oncomingCarsPointsCoord, myCarPointsCoord);
+    if (this.isCrash) {
+      console.log(this.setTimeout);
+      clearTimeout(this.setTimeout);
+    }
   };
 
   updateGame = (isPressed: string) => {
@@ -113,8 +104,8 @@ export class Game {
     if (!this.isCrash) {
       this.myCarX = myCarMoveHandler(isPressed, this.myCarX, this.myCarY).myCarX;
       this.myCarY = myCarMoveHandler(isPressed, this.myCarX, this.myCarY).myCarY;
+      this.movingRoad();
     }
-    this.movingRoad();
   };
 
   updateBackground = () => {
@@ -133,7 +124,9 @@ export class Game {
   };
 
   moveBackground = () => {
-    this.updateBackground();
+    if (!this.isCrash) {
+      this.updateBackground();
+    }
     if (this.delayTimeout !== timeout.minTimeout) {
       this.delayTimeout -= timeout.changeTimeout;
     }
@@ -148,7 +141,7 @@ export class Game {
   }
 
   timeout = () => {
-    setTimeout(this.moveBackground, this.delayTimeout);
+    this.setTimeout = setTimeout(this.moveBackground, this.delayTimeout);
   }
 
   isMoveKey = (e): boolean => e.key === 'Right' || e.key === 'ArrowRight'
@@ -195,11 +188,8 @@ export class Game {
   }
 
   endGameEvent = () => {
+    GameOverScreen(this.score);
     this.takeOnMe.pause();
-    this.initStartPosition();
-    this.lifes = startScore.lifes;
-    this.score = startScore.score;
-    this.isCrash = false;
     if (Number(localStorage.hiScore) < this.score) {
       localStorage.hiScore = this.score;
     }

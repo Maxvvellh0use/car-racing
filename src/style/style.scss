@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 .canvas_container {
-  font-family: 'Lato', sans-serif;
   display: flex;
   justify-content: center;
 }
@@ -11,7 +10,14 @@
   border: 5px solid black;
 }
 
+.canvas_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .score_container {
+  font-family: 'VT323', monospace;
   height: 100%;
   max-height: 630px;
   width: 200px;
@@ -24,12 +30,21 @@
 }
 
 .score_container__item  {
-  font-size: 30px;
+  font-size: 45px;
   margin: 20px;
   width: 100%;
 }
 
+.start_title {
+  font-size: 40px;
+}
+
 .start_button_container {
+  margin: auto;
+}
+
+.start_button_container {
+  font-family: 'VT323', monospace;
   width: 510px;
   height: 630px;
   background: #9BB7AC;
@@ -41,18 +56,16 @@
 }
 
 .start_button {
+  font-family: 'VT323', monospace;
+  font-size: 70px;
+  color: black;
   width: 300px;
   height: 100px;
   text-decoration: none;
   text-align: center;
   padding: 11px 19px;
-  border: solid 1px #005072;
   border-radius: 4px;
-  font: 35px Arial, Helvetica, sans-serif;
   font-weight:bold;
-  color: #e5ffff;
-  background:#0062ec;
-  box-shadow:0 0 2px #bababa, inset 0 0 1px #ffffff;
   &:hover {
     cursor: pointer;
   }
@@ -112,10 +125,33 @@
   }
 }
 
-.canvas_lifes {
+.game_over_container {
+  margin: auto;
+  font-family: 'VT323', monospace;
+  height: 630px;
+  width: 510px;
   border: 5px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #9BB7AC;
 }
 
+.game_over__title {
+  font-size: 70px;
+}
+
+.game_over__total_score {
+  margin-top: 30px;
+  font-size: 50px;
+}
+
+.game_over__try_again {
+  font-size: 30px;
+  margin-top: 20px;
+  cursor: pointer;
+}
 
 .hidden {
   display: none;

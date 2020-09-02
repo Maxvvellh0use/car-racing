@@ -31,6 +31,10 @@ module.exports = {
       },
       // img loader
       {
+        test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
+        use: ['file-loader'],
+      },
+      {
         test: /\.(svg|png|jpe?g|json|)$/i,
         use: {
           loader: 'file-loader',
@@ -52,8 +56,6 @@ module.exports = {
     ),
     new CopyPlugin([
       { from: 'src/assets/audio', to: 'src/audio' },
-      { from: 'src/assets/img/icons', to: 'src/img' },
-      { from: 'src/assets/img', to: 'src/img' },
     ]),
     new HtmlWebpackPlugin({
       inject: true,

@@ -4,13 +4,14 @@ import { drawBackground } from '../Background/Background';
 import { startPosition, startScore } from '../consts';
 import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
 import { Game } from '../Game/Game';
-import {drawLifes} from "../Lifes/Lifes";
+import { drawLifes } from '../Lifes/Lifes';
 
 export const InitGame = () => {
   const root = document.getElementById('root');
-  const startScreen = document.getElementById('startScreen');
+  const startScreen = document.getElementById('startScreenRoot');
   const buttonsMoveRoot = document.getElementById('buttonsMoveRoot');
   startScreen.classList.add('hidden');
+  buttonsMoveRoot.innerHTML = '';
   root.insertAdjacentHTML('afterbegin', `<canvas 
                                                      class="canvas"
                                                      id="canvasRoot" 
@@ -27,6 +28,5 @@ export const InitGame = () => {
   drawMyCar(startPosition.myCarX, startPosition.myCarY);
   const game = new Game();
   document.addEventListener('keydown', (e) => game.keyHandler(e), false);
-
   game.initUpdate();
 };
