@@ -53,6 +53,26 @@ export const oncomingCarsNarrow = [
     oncomingCarX: xPositionCenter,
     oncomingCarY: 126 * cubeHeightCoeff,
   },
+  {
+    oncomingCarX: xPositionLeft,
+    oncomingCarY: 135 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionCenter,
+    oncomingCarY: 144 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionLeft,
+    oncomingCarY: 153 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionCenter,
+    oncomingCarY: 162 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionLeft,
+    oncomingCarY: 171 * cubeHeightCoeff,
+  },
 ];
 
 export const oncomingCarsWide = [
@@ -121,7 +141,19 @@ export const oncomingCarsWide = [
     oncomingCarY: 136 * cubeHeightCoeff,
   },
   {
+    oncomingCarX: xPositionCenter,
+    oncomingCarY: 145 * cubeHeightCoeff,
+  },
+  {
     oncomingCarX: xPositionRight,
-    oncomingCarY: 148 * cubeHeightCoeff,
+    oncomingCarY: 154 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionLeft,
+    oncomingCarY: 163 * cubeHeightCoeff,
+  },
+  {
+    oncomingCarX: xPositionCenter,
+    oncomingCarY: 172 * cubeHeightCoeff,
   },
 ];

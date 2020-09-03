@@ -4,7 +4,7 @@ export const roadHeight = 630;
 
 export const startPosition = {
   myCarY: 515,
-  myCarX: 95,
+  myCarX: 185,
   backgroundY: -145,
   roadY: -25,
   oncomingCarX: 95,
@@ -22,7 +22,7 @@ export const maxCarDown = 515;
 export const maxCarsInterval = 720;
 export const minCarsInterval = 270;
 
-export const maxOncomingCarsY = 5050;
+export const maxOncomingCarsY = 5660;
 
 export const maxRoadY = 50;
 export const minRoadY = -25;
