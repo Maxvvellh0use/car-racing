@@ -7,9 +7,9 @@ export const SelectFieldWidth = () => {
                                     <div class="title_field_select">Select the field width:</div>    
                                     <ul class="field_width_select_list">
                                         <li class="field_width_select_list__item" id="narrowFieldItem">
-                                        <span>Narrow</span></li>
+                                        <span>Small</span></li>
                                         <li class="field_width_select_list__item" id="wideFieldItem">
-                                        <span>Wide</span></li>
+                                        <span>Medium</span></li>
                                     </ul>`);
   const narrowFieldItem = document.getElementById('narrowFieldItem');
   const wideFieldItem = document.getElementById('wideFieldItem');

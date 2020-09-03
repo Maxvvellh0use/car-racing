@@ -1,68 +1,52 @@
 import {
+  goalIncreaseCoeff,
   iconsMusic,
   maxOncomingCarsY,
   maxRoadY,
-  minRoadY,
+  minRoadY, moveAudioVolume,
   moveStep,
   scoreIncreaseCoeff,
   startPosition,
-  startScore, timeout,
+  startScore, timeout, zero,
 } from '../consts';
 import { drawRoad } from '../Road/Road';
 import { drawBackground } from '../Background/Background';
 import { drawMyCar } from '../MyCar/MyCar';
-import { drawOncomingCar } from '../OncomingCar/OncomingCar';
-import { oncomingCarsNarrow, oncomingCarsWide } from '../../data/oncomingCars';
 import { myCarMoveHandler } from '../helpers/myCarMoveHandler';
 import { isCrashCheck } from '../helpers/isCrushCheck';
 import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
 import { drawLifes } from '../Lifes/Lifes';
 import { GameOverScreen } from '../GameOverScreen/GameOverScreen';
 import { isGoal } from '../helpers/isGoal';
-import {getOncomingCars} from "../helpers/getOncomingCars";
+import { getOncomingCars } from '../helpers/getOncomingCars';
 
 export class Game {
   canvas: HTMLCanvasElement;
-
   rootScore: HTMLElement;
-
   ctx: CanvasRenderingContext2D;
-
   myCarX: number;
-
   myCarY: number;
-
   backgroundY: number;
-
   isCrash: boolean;
-
   oncomingCarY: number;
-
   roadY: number;
-
   score: number;
-
   hiScore: number;
-
   lifes: number;
-
   speedCoeff: number;
-
   goal: number;
-
   delayTimeout: number;
-
   takeOnMe: HTMLAudioElement;
-
   setTimeout: NodeJS.Timeout;
-
-  soundIcon: string;
-
   isMusicPlay: boolean;
-
   fieldWidth: string;
+  musicIcon: HTMLImageElement;
+  musicOnOffIcons: {
+    on: HTMLImageElement,
+    off: HTMLImageElement
+  }
 
-  constructor(fieldWidth: string) {
+  constructor(fieldWidth: string, musicOnOffIcons) {
     this.fieldWidth = fieldWidth;
     this.canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
     this.rootScore = document.getElementById('rootScore');
@@ -81,7 +65,8 @@ export class Game {
     this.lifes = startScore.lifes;
     this.setTimeout = null;
     this.takeOnMe = new Audio('src/audio/take-on-me.mp3');
-    this.soundIcon = iconsMusic.musicOn;
+    this.musicOnOffIcons = musicOnOffIcons;
+    this.musicIcon = musicOnOffIcons.on;
     this.isMusicPlay = true;
   }
 
@@ -107,7 +92,7 @@ export class Game {
   }
 
   movingRoad = () => {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.clearRect(zero, zero, this.canvas.width, this.canvas.height);
     drawBackground(this.backgroundY, this.fieldWidth);
     drawLifes(this.lifes);
     drawRoad(this.roadY, this.fieldWidth);
@@ -127,7 +112,7 @@ export class Game {
     this.isCrash = isCrashCheck(oncomingCarsPointsCoord, myCarPointsCoord);
     this.rootScore.innerHTML = '';
     ScoreContainer(this.score, this.hiScore, startScore.lifes,
-      this.speedCoeff, this.goal, this.soundIcon);
+      this.speedCoeff, this.goal, this.musicIcon);
     if (!this.isCrash) {
       this.myCarX = myCarMoveHandler(isPressed, this.myCarX, this.myCarY, this.fieldWidth).myCarX;
       this.myCarY = myCarMoveHandler(isPressed, this.myCarX, this.myCarY, this.fieldWidth).myCarY;
@@ -139,9 +124,10 @@ export class Game {
     this.rootScore.innerHTML = '';
     this.score = this.goal * scoreIncreaseCoeff;
     const oncomingCarsPointsCoord = getOncomingCars(this.fieldWidth, this.oncomingCarY);
-    this.goal = isGoal(oncomingCarsPointsCoord) ? this.goal + 1 : this.goal;
-    ScoreContainer(this.score, this.hiScore, 0, this.speedCoeff, this.goal, this.soundIcon);
-    const musicIcon = document.getElementById('musicIcon');
+    this.goal = isGoal(oncomingCarsPointsCoord) ? this.goal + goalIncreaseCoeff : this.goal;
+    ScoreContainer(this.score, this.hiScore, zero, this.speedCoeff, this.goal,
+      this.musicIcon);
+    const musicIcon = document.getElementById('musicIconContainer');
     musicIcon.addEventListener('click', this.musicOnOff);
     this.roadY = this.roadY > maxRoadY ? this.roadY = minRoadY : this.roadY;
     this.roadY += moveStep;
@@ -156,7 +142,7 @@ export class Game {
     if (this.delayTimeout !== timeout.minTimeout) {
       this.delayTimeout -= timeout.changeTimeout;
     }
-    if (this.delayTimeout % timeout.speedIncreaseThreshold === 0) {
+    if (this.delayTimeout % timeout.speedIncreaseThreshold === zero) {
       this.speedCoeff += timeout.increaseSpeedCoeff;
     }
     if (!this.isCrash) {
@@ -175,7 +161,7 @@ export class Game {
 
   buttonMove = () => {
     const moveAudio = new Audio('src/audio/move.mp3');
-    moveAudio.volume = 0.1;
+    moveAudio.volume = moveAudioVolume;
     const buttonLeft = document.getElementById('buttonLeft');
     const buttonRight = document.getElementById('buttonRight');
     buttonLeft.addEventListener('click', () => {
@@ -190,7 +176,7 @@ export class Game {
 
   keyHandler = (e) => {
     const moveAudio = new Audio('src/audio/move.mp3');
-    moveAudio.volume = 0.1;
+    moveAudio.volume = moveAudioVolume;
     if (e.key === 'Right' || e.key === 'ArrowRight') {
       this.updateGame('Right');
     } if (e.key === 'Left' || e.key === 'ArrowLeft') {
@@ -224,10 +210,10 @@ export class Game {
   musicOnOff = () => {
     this.isMusicPlay = !this.isMusicPlay;
     if (this.isMusicPlay) {
-      this.soundIcon = iconsMusic.musicOff;
+      this.musicIcon = this.musicOnOffIcons.off;
       this.takeOnMe.pause();
     } else {
-      this.soundIcon = iconsMusic.musicOn;
+      this.musicIcon = this.musicOnOffIcons.on;
       this.takeOnMe.play().then();
     }
   }

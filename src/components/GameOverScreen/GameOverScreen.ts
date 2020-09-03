@@ -1,4 +1,3 @@
-import { Game } from '../Game/Game';
 import { InitGame } from '../InitGame/InitGame';
 
 interface Props {
@@ -12,7 +11,7 @@ export const GameOverScreen: Props = (score, fieldWidth) => {
   const gameOverRoot = document.getElementById('gameOverRoot');
   const rootScore = document.getElementById('rootScore');
   const gameRoot = document.getElementById('root');
-  const buttonsMoveRoot = document.getElementById('buttonsMoveRoot');;
+  const buttonsMoveRoot = document.getElementById('buttonsMoveRoot');
   gameOverRoot.classList.remove('hidden');
   buttonsMoveRoot.classList.add('hidden');
   rootScore.classList.add('hidden');
@@ -24,8 +23,8 @@ export const GameOverScreen: Props = (score, fieldWidth) => {
   const tryAgainButton = document.getElementById('tryAgainButton');
   tryAgainButton.addEventListener('click', () => {
     gameRoot.innerHTML = '';
-    gameOverRoot.innerHTML = '';
     gameOverRoot.classList.add('hidden');
+    gameOverRoot.innerHTML = '';
     buttonsMoveRoot.classList.remove('hidden');
     rootScore.classList.remove('hidden');
     gameRoot.classList.remove('hidden');
