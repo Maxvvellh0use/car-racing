@@ -79,6 +79,25 @@ main {
   }
 }
 
+.title_field_select {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.field_width_select_list__item {
+  font-size: 35px;
+  list-style: none;
+  cursor: pointer;
+  margin: 10px;
+  &:hover {
+    list-style-type: ">";
+  }
+}
+
+.field_width_select_list__item span {
+  margin-left: 20px;
+}
+
 .buttons_move_container {
   display: flex;
   flex-direction: row;

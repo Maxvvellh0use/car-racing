@@ -1,9 +1,11 @@
-import { drawCube } from '../Cube/Cube';
-import { moveStep, roadHeight, roadWidth } from '../consts';
+import {
+  moveStep, roadHeight, roadNarrowWidth, roadWideWidth,
+} from '../consts';
 import { drawRow } from '../Row/Row';
 
-export const drawBackground = (startCoordY) => {
+export const drawBackground = (startCoordY, fieldWidth: string) => {
   let coordY = startCoordY;
+  const roadWidth = fieldWidth === 'narrow' ? roadNarrowWidth : roadWideWidth;
   while (coordY < roadHeight) {
     drawRow(coordY, roadWidth);
     coordY += moveStep;

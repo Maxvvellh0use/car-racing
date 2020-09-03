@@ -1,4 +1,4 @@
-import { moveStep, roadWidth } from '../consts';
+import { moveStep } from '../consts';
 import { drawCube } from '../Cube/Cube';
 
 export const drawRow = (coordY: number, maxWidth) => {

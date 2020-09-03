@@ -1,9 +1,9 @@
 import { drawLine } from '../Line/Line';
 
-export const drawRoad = (startRoadCoordY) => {
+export const drawRoad = (startRoadCoordY, fieldWidth: string) => {
   const coordY = startRoadCoordY;
   const yInterval = 120;
-  const xInterval = 270;
+  const xInterval = fieldWidth === 'narrow' ? 270 : 360;
   const drawLeft = () => {
     drawLine(5, coordY - yInterval);
     drawLine(5, coordY);

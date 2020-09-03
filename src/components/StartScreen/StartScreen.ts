@@ -1,6 +1,4 @@
-import { InitGame } from '../InitGame/InitGame';
-
-
+import { SelectFieldWidth } from '../SelectFieldWidth/SelectFieldWidth';
 
 export const StartScreen = () => {
   const startScreenRoot = document.getElementById('startScreenRoot');
@@ -9,5 +7,5 @@ export const StartScreen = () => {
         <div class="start_button" id="startButton">Start Game</div>
     `);
   const startButton = document.getElementById('startButton');
-  startButton.addEventListener('click', InitGame);
+  startButton.addEventListener('click', SelectFieldWidth);
 };

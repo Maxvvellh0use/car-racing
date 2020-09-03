@@ -12,13 +12,14 @@ import { drawRoad } from '../Road/Road';
 import { drawBackground } from '../Background/Background';
 import { drawMyCar } from '../MyCar/MyCar';
 import { drawOncomingCar } from '../OncomingCar/OncomingCar';
-import { oncomingCars } from '../../data/oncomingCars';
+import { oncomingCarsNarrow, oncomingCarsWide } from '../../data/oncomingCars';
 import { myCarMoveHandler } from '../helpers/myCarMoveHandler';
 import { isCrashCheck } from '../helpers/isCrushCheck';
 import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
 import { drawLifes } from '../Lifes/Lifes';
 import { GameOverScreen } from '../GameOverScreen/GameOverScreen';
 import { isGoal } from '../helpers/isGoal';
+import {getOncomingCars} from "../helpers/getOncomingCars";
 
 export class Game {
   canvas: HTMLCanvasElement;
@@ -59,7 +60,10 @@ export class Game {
 
   isMusicPlay: boolean;
 
-  constructor() {
+  fieldWidth: string;
+
+  constructor(fieldWidth: string) {
+    this.fieldWidth = fieldWidth;
     this.canvas = document.getElementById('canvasRoot') as HTMLCanvasElement;
     this.rootScore = document.getElementById('rootScore');
     this.ctx = this.canvas.getContext('2d');
@@ -104,13 +108,12 @@ export class Game {
 
   movingRoad = () => {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    drawBackground(this.backgroundY);
+    drawBackground(this.backgroundY, this.fieldWidth);
     drawLifes(this.lifes);
-    drawRoad(this.roadY);
+    drawRoad(this.roadY, this.fieldWidth);
     this.oncomingCarY = this.oncomingCarY > maxOncomingCarsY ? startPosition.oncomingCarY
       : this.oncomingCarY;
-    const oncomingCarsPointsCoord = oncomingCars.map((car) => drawOncomingCar(car.oncomingCarX,
-      car.oncomingCarY + this.oncomingCarY));
+    const oncomingCarsPointsCoord = getOncomingCars(this.fieldWidth, this.oncomingCarY);
     const myCarPointsCoord = drawMyCar(this.myCarX, this.myCarY);
     this.isCrash = isCrashCheck(oncomingCarsPointsCoord, myCarPointsCoord);
     if (this.isCrash) {
@@ -119,16 +122,15 @@ export class Game {
   };
 
   updateGame = (isPressed: string) => {
-    const oncomingCarsPointsCoord = oncomingCars.map((car) => drawOncomingCar(car.oncomingCarX,
-      car.oncomingCarY + this.oncomingCarY));
+    const oncomingCarsPointsCoord = getOncomingCars(this.fieldWidth, this.oncomingCarY);
     const myCarPointsCoord = drawMyCar(this.myCarX, this.myCarY);
     this.isCrash = isCrashCheck(oncomingCarsPointsCoord, myCarPointsCoord);
     this.rootScore.innerHTML = '';
     ScoreContainer(this.score, this.hiScore, startScore.lifes,
       this.speedCoeff, this.goal, this.soundIcon);
     if (!this.isCrash) {
-      this.myCarX = myCarMoveHandler(isPressed, this.myCarX, this.myCarY).myCarX;
-      this.myCarY = myCarMoveHandler(isPressed, this.myCarX, this.myCarY).myCarY;
+      this.myCarX = myCarMoveHandler(isPressed, this.myCarX, this.myCarY, this.fieldWidth).myCarX;
+      this.myCarY = myCarMoveHandler(isPressed, this.myCarX, this.myCarY, this.fieldWidth).myCarY;
       this.movingRoad();
     }
   };
@@ -136,8 +138,7 @@ export class Game {
   updateBackground = () => {
     this.rootScore.innerHTML = '';
     this.score = this.goal * scoreIncreaseCoeff;
-    const oncomingCarsPointsCoord = oncomingCars.map((car) => drawOncomingCar(car.oncomingCarX,
-      car.oncomingCarY + this.oncomingCarY));
+    const oncomingCarsPointsCoord = getOncomingCars(this.fieldWidth, this.oncomingCarY);
     this.goal = isGoal(oncomingCarsPointsCoord) ? this.goal + 1 : this.goal;
     ScoreContainer(this.score, this.hiScore, 0, this.speedCoeff, this.goal, this.soundIcon);
     const musicIcon = document.getElementById('musicIcon');
@@ -213,7 +214,7 @@ export class Game {
   }
 
   endGameEvent = () => {
-    GameOverScreen(this.score);
+    GameOverScreen(this.score, this.fieldWidth);
     this.takeOnMe.pause();
     if (Number(localStorage.hiScore) < this.score) {
       localStorage.hiScore = this.score;
