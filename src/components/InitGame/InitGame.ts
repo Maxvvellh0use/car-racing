@@ -1,7 +1,7 @@
 import { drawMyCar } from '../MyCar/MyCar';
 import { drawRoad } from '../Road/Road';
 import { drawBackground } from '../Background/Background';
-import { startPosition, startScore } from '../consts';
+import {iconsMusic , startPosition , startScore} from '../consts';
 import { ScoreContainer } from '../ScoreContainer/ScoreContainer';
 import { Game } from '../Game/Game';
 import { drawLifes } from '../Lifes/Lifes';
@@ -22,7 +22,7 @@ export const InitGame = () => {
                 <button class="button_move button_move__left" id="buttonLeft"></button>
                 <button class="button_move button_move__right" id="buttonRight"></button>`);
   ScoreContainer(startScore.score, Number(localStorage.hiScore), startScore.lifes,
-    startScore.speed, startScore.speed);
+    startScore.speed, startScore.speed, iconsMusic.musicOn);
   drawLifes(startScore.lifes);
   drawRoad(-25);
   drawBackground(-25);

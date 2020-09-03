@@ -1,6 +1,6 @@
-import { maxCarsInterval, minCarsIntreval } from '../consts';
+import { maxCarsInterval, minCarsInterval } from '../consts';
 
 export const getRandomNumber = () => {
-  const rand = minCarsIntreval - 0.5 + Math.random() * (maxCarsInterval - minCarsIntreval + 1);
+  const rand = minCarsInterval - 0.5 + Math.random() * (maxCarsInterval - minCarsInterval + 1);
   return Math.round(rand);
 };

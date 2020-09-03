@@ -30,6 +30,5 @@ export const GameOverScreen: Props = (score) => {
     rootScore.classList.remove('hidden');
     gameRoot.classList.remove('hidden');
     InitGame();
-    // window.location.reload();
   });
 };

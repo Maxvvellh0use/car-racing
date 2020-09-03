@@ -18,12 +18,14 @@ export const maxCarUp = 5;
 export const maxCarDown = 515;
 
 export const maxCarsInterval = 720;
-export const minCarsIntreval = 270;
+export const minCarsInterval = 270;
 
 export const maxOncomingCarsY = 4450;
 
 export const maxRoadY = 50;
 export const minRoadY = -25;
+
+export const goalPoint = '635';
 
 export const timeout = {
   startTimeout: 300,
@@ -42,3 +44,8 @@ export const startScore = {
 };
 
 export const scoreIncreaseCoeff = 100;
+
+export const iconsMusic = {
+  musicOn: 'src/img/music-on.svg',
+  musicOff: 'src/img/music-off.svg',
+};

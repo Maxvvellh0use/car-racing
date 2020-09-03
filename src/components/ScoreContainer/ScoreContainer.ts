@@ -4,11 +4,12 @@ interface Props {
         hiScore: number,
         lifes: number,
         speed: number,
-        goal: number
+        goal: number,
+        soundIcon: string
     ): void
 }
 
-export const ScoreContainer: Props = (score, hiScore, lifes, speed, goal) => {
+export const ScoreContainer: Props = (score, hiScore, lifes, speed, goal, soundIcon) => {
   const root = document.getElementById('rootScore');
   root.insertAdjacentHTML('beforeend', `
                     <div class="score_container">
@@ -29,8 +30,8 @@ export const ScoreContainer: Props = (score, hiScore, lifes, speed, goal) => {
                     <div class="score_container__item goal">
                         <span>Goal: ${goal}</span>
                     </div>
-                    <div class="sound_icon">
-                        <span></span>
+                    <div class="score_container__item sound_icon">
+                        <img src="${soundIcon}" class="sound_svg" alt="sound icon" id="musicIcon"/>
                     </div>
                 </div>`);
 };

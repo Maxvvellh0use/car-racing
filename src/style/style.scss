@@ -5,6 +5,7 @@ main {
     width: 600px;
     height: 1200px;
   }
+  user-select: none;
 }
 
 .canvas_container {
@@ -158,6 +159,15 @@ main {
   font-size: 30px;
   margin-top: 20px;
   cursor: pointer;
+}
+
+.sound_icon {
+  margin-top: 0;
+}
+
+.sound_svg {
+  cursor: pointer;
+  width: 40px;
 }
 
 .hidden {

@@ -56,6 +56,7 @@ module.exports = {
     ),
     new CopyPlugin([
       { from: 'src/assets/audio', to: 'src/audio' },
+      { from: 'src/assets/img', to: 'src/img' },
     ]),
     new HtmlWebpackPlugin({
       inject: true,
