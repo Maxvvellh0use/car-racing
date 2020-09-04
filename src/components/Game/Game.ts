@@ -1,6 +1,5 @@
 import {
   goalIncreaseCoeff,
-  iconsMusic,
   maxOncomingCarsY,
   maxRoadY,
   minRoadY, moveAudioVolume,
