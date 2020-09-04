@@ -66,7 +66,7 @@ export class Game {
     this.takeOnMe = new Audio('src/audio/take-on-me.mp3');
     this.musicOnOffIcons = musicOnOffIcons;
     this.musicIcon = musicOnOffIcons.on;
-    this.isMusicPlay = true;
+    this.isMusicPlay = false;
   }
 
   initStartPosition = () => {
@@ -83,7 +83,7 @@ export class Game {
   initUpdate = () => {
     this.takeOnMe.addEventListener('ended', () => this.takeOnMe.play().then());
     this.initStartPosition();
-    if (this.isMusicPlay) {
+    if (!this.isMusicPlay) {
       this.takeOnMe.play().then();
     }
     this.timeout();
@@ -215,5 +215,7 @@ export class Game {
       this.musicIcon = this.musicOnOffIcons.on;
       this.takeOnMe.play().then();
     }
+    console.log(this.isMusicPlay)
   }
+
 }
