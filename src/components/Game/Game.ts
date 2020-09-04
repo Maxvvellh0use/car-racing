@@ -214,7 +214,5 @@ export class Game {
       this.musicIcon = this.musicOnOffIcons.on;
       this.takeOnMe.play().then();
     }
-    console.log(this.isMusicPlay)
   }
-
 }
