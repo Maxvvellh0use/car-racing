@@ -69,6 +69,21 @@ export class Game {
     this.isMusicPlay = false;
   }
 
+  initButtonsListeners = () => {
+    const moveAudio = new Audio('src/audio/move.mp3');
+    moveAudio.volume = moveAudioVolume;
+    const buttonLeft = document.getElementById('buttonLeft');
+    const buttonRight = document.getElementById('buttonRight');
+    buttonLeft.addEventListener('click', () => {
+      this.updateGame('Left');
+      moveAudio.play().then();
+    });
+    buttonRight.addEventListener('click', () => {
+      this.updateGame('Right');
+      moveAudio.play().then();
+    });
+  }
+
   initStartPosition = () => {
     this.myCarX = startPosition.myCarX;
     this.myCarY = startPosition.myCarY;
@@ -87,7 +102,6 @@ export class Game {
       this.takeOnMe.play().then();
     }
     this.timeout();
-    this.buttonMove();
   }
 
   movingRoad = () => {
@@ -157,21 +171,6 @@ export class Game {
 
   isMoveKey = (e): boolean => e.key === 'Right' || e.key === 'ArrowRight'
         || e.key === 'Left' || e.key === 'ArrowLeft'
-
-  buttonMove = () => {
-    const moveAudio = new Audio('src/audio/move.mp3');
-    moveAudio.volume = moveAudioVolume;
-    const buttonLeft = document.getElementById('buttonLeft');
-    const buttonRight = document.getElementById('buttonRight');
-    buttonLeft.addEventListener('click', () => {
-      this.updateGame('Left');
-      moveAudio.play().then();
-    });
-    buttonRight.addEventListener('click', () => {
-      this.updateGame('Right');
-      moveAudio.play().then();
-    });
-  }
 
   keyHandler = (e) => {
     const moveAudio = new Audio('src/audio/move.mp3');

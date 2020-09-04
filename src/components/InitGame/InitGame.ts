@@ -42,4 +42,5 @@ export const InitGame = (fieldWidth: string) => {
   const game = new Game(fieldWidth, musicOnOffIcons);
   document.addEventListener('keydown', (e) => game.keyHandler(e), false);
   game.initUpdate();
+  game.initButtonsListeners();
 };
