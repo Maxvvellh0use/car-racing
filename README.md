@@ -9,4 +9,8 @@ Car Racing is a mini game, analogue of everyone's favorite Brick Game: Car Racin
 - Sass
 - Webpack
 
+## How to start project: 
+
+`npm start`
+
 ### ![image](./src/assets/img/screen-app.png)
