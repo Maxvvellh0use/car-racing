@@ -192,3 +192,10 @@ main {
 .hidden {
   display: none;
 }
+
+
+@-moz-document url-prefix() {
+  .score_container__item {
+    margin: 12px;
+  }
+}
