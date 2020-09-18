@@ -11,6 +11,7 @@ Car Racing is a mini game, analogue of everyone's favorite Brick Game: Car Racin
 
 ## How to start project: 
 
+`npm install`
 `npm start`
 
 ### ![image](./src/assets/img/screen-app.png)
